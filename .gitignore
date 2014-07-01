@@ -1,3 +1,12 @@
+# ignore haskell intermediate files
+*.hi
+*.o
+
+# Although, I realized that I don't need to compile haskell
+# files to run them as programs.
+# 
+# 'runhaskell' interprets the file as though it were compiled and run.
+#
 
 # ignore executables I make
 *.exe
