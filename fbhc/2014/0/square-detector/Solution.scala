@@ -1,7 +1,7 @@
 // https://www.facebook.com/hackercup/problems.php?pid=318555664954399&round=598486203541358
 
 // Unfortunately, the facebook hacker cup judge doesn't seem to be available after the contest
-// as far as I can tell.
+// as far as I can tell. So I've only been able to test against the example input.
 
 object Solution {
 	def main(args : Array[String]) {
