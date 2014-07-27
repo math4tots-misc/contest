@@ -1,3 +1,6 @@
+# Actually later realized all reachable positions may be reached in at most 2 moves.
+# Meh. This solution is still simple enough, and the board is so small that
+# speed really isn't an issue.
 from collections import deque
 
 class BishopMove:
