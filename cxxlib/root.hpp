@@ -1,6 +1,6 @@
 /*
 
-Tries to find the integer floor n-th root of x.
+Tries to find the integer n-th root of x.
 
 Makes a guess based on floating point arithmetic,
 and then tries numbers around it to see if it would work.
@@ -10,6 +10,8 @@ If one couldn't be found returns -1.
 ----------------
 
 root_limpow limits the exponent so that hopefully we don't overflow.
+However, if r is at least the sqrt of the max value, weird things
+may happen (for long long this is around 2**31 ~ 2*10**9)
 
 */
 
