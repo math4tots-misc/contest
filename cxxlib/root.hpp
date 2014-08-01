@@ -7,30 +7,29 @@ and then tries numbers around it to see if it would work.
 
 If one couldn't be found returns -1.
 
-----------------
+----------------------
 
-root_limpow limits the exponent so that hopefully we don't overflow.
-However, if r is at least the sqrt of the max value, weird things
-may happen (for long long this is around 2**31 ~ 2*10**9)
+root_test returns true if r ** n == x and false otherwise.
 
 */
 
 template <class T, class R>
-static inline T root_limpow(T r, R n, T m) {
-	T t = 1;
-	for (R i = 0; i < n; i++) {
-		t *= r;
-		if (t > m)
-			return m+1;
-	}
-	return t;
+static inline bool root_test(T r, R n, T x) {
+	if (r == 0)
+		return x == 0;
+	for (R i = 0; i < n; i++)
+		if (x%r == 0)
+			x /= r;
+		else
+			return false;
+	return x == 1;
 }
 
 template <class T, class R>
 static inline T root(T x, R n) {
 	T r = floor(pow(x,(double)1/n));
-	for (T rr = r-1; rr <= r+1; rr++)
-		if (root_limpow(rr,n,x) == x)
+	for (T rr = r; rr <= r+1; rr++)
+		if (root_test(rr,n,x))
 			return rr;
 	return -1;
 }
