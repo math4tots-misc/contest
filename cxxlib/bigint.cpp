@@ -5,6 +5,8 @@
 #include <algorithm>
 using namespace std;
 
+
+
 struct BigInt {
 	typedef string::const_reverse_iterator I;
 	const string x;
@@ -26,9 +28,9 @@ struct BigInt {
 	
 	BigInt operator+(const BigInt& y) const {
 		if (x[0] == '-')
-			if (y.x[0] == '-')   return -(BigInt(x.substr(1)) + BigInt(y.x.substr(1)));
-			else                 return BigInt(x.substr(1)) - y;
-		else if (y.x[0] == '-')  return (*this) - BigInt(y.x.substr(1));
+			if (y.x[0] == '-')   return -(-(*this) + -y);
+			else                 return -(-(*this) -  y);
+		else if (y.x[0] == '-')  return    (*this) - -y ;
 		
 		string c;
 		I ia = x.rbegin(), ib = y.x.rbegin();
@@ -53,7 +55,10 @@ struct BigInt {
 	}
 	
 	BigInt operator-(const BigInt& y) const {
-		
+		if (x[0] == '-')
+			if (y.x[0] == '-')   return -(-(*this) - -y);
+			else                 return -(-(*this) +  y);
+		else if (y.x[0] == '-')  return    (*this) - -y ;
 		return "0";
 	}
 };
