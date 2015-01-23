@@ -1,0 +1,3 @@
+#!/bin/bash
+javac *.java && java -ea Test
+eval "rm -f *.class; exit $?"

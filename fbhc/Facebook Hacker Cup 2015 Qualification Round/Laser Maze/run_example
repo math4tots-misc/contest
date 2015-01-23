@@ -1,0 +1,5 @@
+#!/bin/bash
+javac *.java && \
+cat laser_maze_example_input.txt | java -ea LaserMaze > laser_maze_example.out && \
+diff laser_maze_example_output.txt laser_maze_example.out
+rm -f *.class
