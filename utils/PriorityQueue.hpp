@@ -11,7 +11,7 @@ struct PriorityQueue {
 
 	PriorityQueue() {}
 
-	PriorityQueue(std::initializer_list<pair<Item, Priority> > args) {
+	PriorityQueue(initializer_list<pair<Item, Priority> > args) {
 		for (auto p : args) {
 			update(p.first, p.second);
 		}
