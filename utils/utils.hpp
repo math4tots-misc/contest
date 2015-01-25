@@ -29,7 +29,8 @@ using namespace std;
 
 #include "read_all.hpp"
 #include "print_stl_containers.hpp"
-#include "number_theory.hpp"
+#include "gcd.hpp"
+#include "primes.hpp"
 #include "PriorityQueue.hpp"
 
 #include "dump_containers.hpp"

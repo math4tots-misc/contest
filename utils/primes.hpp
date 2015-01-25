@@ -1,14 +1,4 @@
 template <class T>
-T gcd(T a, T b) {
-	while (b != 0) {
-		T c = a % b;
-		a = b;
-		b = c;
-	}
-	return a;
-}
-
-template <class T>
 vector<bool> prime_sieve(T N) {
 	vector<bool> sieve(N+1, true);
 	sieve[0] = sieve[1] = false;

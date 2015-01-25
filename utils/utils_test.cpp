@@ -14,16 +14,18 @@ int main() {
 
 	/** print_stl_containers.hpp */
 	assert(to_string(pair<string,int>("hi", 5)) == "pair(hi, 5)");
-	assert(to_string(vector<int>({1, 2, 3})) == "vector(1, 2, 3)");
+  assert(to_string(vector<int>({1, 2, 3})) == "vector(1, 2, 3)");
+  assert(to_string(deque<int>({1, 2, 3})) == "deque(1, 2, 3)");
 	assert(to_string(set<int>({1, 2, 3})) == "set(1, 2, 3)");
 	assert(to_string(map<int,int>({{1, 2}})) == "map(pair(1, 2))");
 	assert(to_string(tuple<char,int>('a', 5)) == "tuple(a, 5)");
 
-	/** number_theory.hpp */
+	/** gcd.hpp */
 	assert(gcd(0, 4) == 4);
 	assert(gcd(5, 0) == 5);
 	assert(gcd(6, 9) == 3);
 
+  /** primes.hpp */
 	assert(primes_up_to(11) == vector<int>({2, 3, 5, 7, 11}));
 
 	/** priority_queue.hpp */

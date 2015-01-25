@@ -31,6 +31,19 @@ string to_string(vector<T> c) {
 	return ss.str();
 }
 
+/** deque */
+template <class T>
+ostream& operator<<(ostream& out, deque<T> m) {
+	return dump_container(out << "deque", m);
+}
+
+template <class T>
+string to_string(deque<T> c) {
+	stringstream ss;
+	ss << c;
+	return ss.str();
+}
+
 /** set */
 template <class T>
 ostream& operator<<(ostream& out, set<T> m) {
