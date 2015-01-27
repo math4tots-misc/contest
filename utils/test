@@ -1,1 +1,1 @@
-g++ utils_test.cpp --std=c++11 && ./a.out && echo "All tests pass!"
+g++ utils_test.cpp --std=c++11 -Wall -Werror -pedantic && ./a.out && echo "All tests pass!"

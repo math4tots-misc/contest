@@ -8,6 +8,7 @@ int main() {
   assert(to_string(deque<int>({1, 2, 3})) == "deque(1, 2, 3)");
 	assert(to_string(set<int>({1, 2, 3})) == "set(1, 2, 3)");
 	assert(to_string(map<int,int>({{1, 2}})) == "map(pair(1, 2))");
+	assert(to_string(array<int, 2>({{5, 5}})) == "array(5, 5)");
 	assert(to_string(tuple<char,int>('a', 5)) == "tuple(a, 5)");
 
 	/** gcd */
@@ -33,4 +34,9 @@ int main() {
 	assert(
 			to_string(PriorityQueue<char, int>({{'a', 5}})) ==
 			"PriorityQueue(tuple(5, a))");
+
+	/** Point */
+	assert((Point<>({{5, 5}}) == Point<>({{5, 5}})));
+	assert((Point<>({{5, 10}}) < Point<>({{10, 5}})));
+	assert(to_string(Point<>{{3, 3}}) == "Point(3, 3)");
 }

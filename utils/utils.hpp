@@ -22,12 +22,13 @@
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
+#include <array>
 #include <tuple>
 #include <queue>
 
 using namespace std;
 
-/*** print stdl containers */
+/*** print stl containers */
 
 /** forward references */
 template <class Container>
@@ -101,6 +102,19 @@ string to_string(map<Key, Value> c) {
   return ss.str();
 }
 
+/** array */
+template <class T, size_t N>
+ostream& operator<<(ostream& out, array<T, N> m) {
+  return dump_container(out << "array", m);
+}
+
+template <class T, size_t N>
+string to_string(array<T, N> c) {
+  ostringstream ss;
+  ss << c;
+  return ss.str();
+}
+
 /** tuple */
 template <class... Args>
 ostream& operator<<(ostream& out, tuple<Args...> t) {
@@ -146,7 +160,6 @@ vector<T> primes_up_to(T N) {
       primes.push_back(i);
   return move(primes);
 }
-
 
 /*** PriorityQueue */
 template <class Item, class Priority>
@@ -208,6 +221,56 @@ template <class Key, class Value>
 string to_string(PriorityQueue<Key, Value> c) {
   ostringstream ss;
   ss << c;
+  return ss.str();
+}
+
+/*** Point */
+/* I seem to be essentially reimplementing <array>.
+ * But I feel like <array> didn't have that much to begin with anyway.
+ */
+template <size_t Dimension=2, class Scalar=double>
+struct Point {
+
+  Scalar _buffer[Dimension];
+
+  Scalar * begin() {
+    return _buffer;
+  }
+
+  Scalar * end() {
+    return _buffer + Dimension;
+  }
+
+  const Scalar * cbegin() const {
+    return _buffer;
+  }
+
+  const Scalar * cend() const {
+    return _buffer + Dimension;
+  }
+
+  size_t size() const {
+    return Dimension;
+  }
+
+  bool operator==(const Point& p) const {
+    return equal(cbegin(), cend(), p.cbegin());
+  }
+
+  bool operator<(const Point& p) const {
+    return lexicographical_compare(cbegin(), cend(), p.cbegin(), p.cend());
+  }
+};
+
+template <size_t Dimension, class Scalar>
+ostream& operator<<(ostream& out, const Point<Dimension, Scalar>& p) {
+  return dump_container(out << "Point", p);
+}
+
+template <size_t Dimension, class Scalar>
+string to_string(const Point<Dimension, Scalar>& p) {
+  ostringstream ss;
+  ss << p;
   return ss.str();
 }
 
