@@ -1,18 +1,8 @@
 #include "utils.hpp"
 
 int main() {
-	/** read_all.hpp */
-	{
-		ifstream fin("read_all.hpp");
-		assert(
-				read_all(fin) ==
-				"inline string read_all(istream& t) {\n"
-				"\treturn string((istreambuf_iterator<char>(t)), "
-				"istreambuf_iterator<char>());\n"
-				"}\n");
-	}
 
-	/** print_stl_containers.hpp */
+	/** print stl containers */
 	assert(to_string(pair<string,int>("hi", 5)) == "pair(hi, 5)");
   assert(to_string(vector<int>({1, 2, 3})) == "vector(1, 2, 3)");
   assert(to_string(deque<int>({1, 2, 3})) == "deque(1, 2, 3)");
@@ -20,15 +10,15 @@ int main() {
 	assert(to_string(map<int,int>({{1, 2}})) == "map(pair(1, 2))");
 	assert(to_string(tuple<char,int>('a', 5)) == "tuple(a, 5)");
 
-	/** gcd.hpp */
+	/** gcd */
 	assert(gcd(0, 4) == 4);
 	assert(gcd(5, 0) == 5);
 	assert(gcd(6, 9) == 3);
 
-  /** primes.hpp */
+  /** primes */
 	assert(primes_up_to(11) == vector<int>({2, 3, 5, 7, 11}));
 
-	/** priority_queue.hpp */
+	/** PriorityQueue */
 	{
 		PriorityQueue<char, int> queue;
 		queue.update('a', 10);
