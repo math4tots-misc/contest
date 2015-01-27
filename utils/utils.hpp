@@ -140,25 +140,25 @@ T gcd(T a, T b) {
   return a;
 }
 
-template <class T>
-vector<bool> prime_sieve(T N) {
-  vector<bool> sieve(N+1, true);
+template <class T, class Sieve=vector<bool> >
+Sieve prime_sieve(T N) {
+  Sieve sieve(N+1, true);
   sieve[0] = sieve[1] = false;
   for (T i = 2; i <= N; i++)
     if (sieve[i])
       for (T j = i+i; j < N; j += i)
         sieve[j] = false;
-  return move(sieve);
+  return sieve;
 }
 
-template <class T>
-vector<T> primes_up_to(T N) {
-  vector<bool> sieve(prime_sieve(N));
-  vector<T> primes;
+template <class T, class Primes=vector<T>, class Sieve=vector<bool> >
+Primes primes_up_to(T N) {
+  Sieve sieve(prime_sieve<T, Sieve>(N));
+  Primes primes;
   for (T i = 2; i <= N; i++)
     if (sieve[i])
       primes.push_back(i);
-  return move(primes);
+  return primes;
 }
 
 /*** PriorityQueue */
@@ -249,6 +249,10 @@ struct Point {
     return _buffer + Dimension;
   }
 
+  Scalar& operator[](size_t i) {
+    return _buffer[i];
+  }
+
   size_t size() const {
     return Dimension;
   }
@@ -260,7 +264,60 @@ struct Point {
   bool operator<(const Point& p) const {
     return lexicographical_compare(cbegin(), cend(), p.cbegin(), p.cend());
   }
+
+  Point& operator+=(const Point& p) {
+    for (size_t i = 0; i < Dimension; i++)
+      _buffer[i] += p._buffer[i];
+    return *this;
+  }
+
+  Point& operator-=(const Point& p) {
+    for (size_t i = 0; i < Dimension; i++)
+      _buffer[i] -= p._buffer[i];
+    return *this;
+  }
+
+  Point& operator*=(const Scalar& s) {
+    for (size_t i = 0; i < Dimension; i++)
+      _buffer[i] *= s;
+    return *this;
+  }
+
+  Point operator+(const Point& p) const {
+    Point r(*this);
+    r += p;
+    return r;
+  }
+
+  Point operator-(const Point& p) const {
+    Point r(*this);
+    r -= p;
+    return r;
+  }
+
+  Point operator*(const Scalar& s) const {
+    Point r(*this);
+    r *= s;
+    return r;
+  }
+
+  Scalar dot(const Point& p) const {
+    Scalar ret = 0;
+    for (size_t i = 0; i < Dimension; i++)
+      ret += _buffer[i] * p._buffer[i];
+    return ret;
+  }
 };
+
+template <size_t D, class S>
+Point<D, S> operator*(const S& s, const Point<D, S>& p) {
+  return p * s;
+}
+
+template <size_t I, size_t Dimension, class Scalar>
+Scalar& get(Point<Dimension, Scalar>& p) {
+  return p._buffer[I];
+}
 
 template <size_t Dimension, class Scalar>
 ostream& operator<<(ostream& out, const Point<Dimension, Scalar>& p) {
@@ -273,7 +330,6 @@ string to_string(const Point<Dimension, Scalar>& p) {
   ss << p;
   return ss.str();
 }
-
 
 /*** dump_* implementations have to come at the end */
 

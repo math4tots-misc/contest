@@ -38,5 +38,14 @@ int main() {
 	/** Point */
 	assert((Point<>({{5, 5}}) == Point<>({{5, 5}})));
 	assert((Point<>({{5, 10}}) < Point<>({{10, 5}})));
-	assert(to_string(Point<>{{3, 3}}) == "Point(3, 3)");
+	{
+		Point<3> p({{1, 2, 3}});
+		assert(p[0] == 1);
+		assert(get<2>(p) == 3);
+	}
+	assert(to_string(Point<>{{3.5, 3}}) == "Point(3.5, 3)");
+	assert(to_string(Point<>{{3.5, 4.5}} + Point<>{{3.5, 4.5}}) == "Point(7, 9)");
+	assert(to_string(Point<>{{3.5, 4.5}} - Point<>{{3.5, 4.5}}) == "Point(0, 0)");
+	assert(to_string(2.0 * Point<>{{3.5, 4.5}}) == "Point(7, 9)");
+	assert(Point<>({{2, 4}}).dot(Point<>({{4, 2}})) == 16);
 }
