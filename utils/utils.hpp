@@ -339,18 +339,35 @@ string to_string(const Point<Dimension, Scalar>& p) {
   return ss.str();
 }
 
-/*** (Hyper)Plane */
-template <class Point=Point<3> >
-struct Plane {
+/*** HyperPlane */
+template <class Point>
+struct HyperPlane {
   Point _normal, _translation;
 
-  static Plane fromPoints3D(Point a, Point b, Point c) {
+  HyperPlane(Point n=Point(), Point t=Point()) : _normal(n), _translation(t) {}
+
+  bool contains(const Point& p) const {
+    return _normal.dot(p - _translation) == 0;
+  }
+};
+
+template <class Point=Point<3> >
+struct Plane : HyperPlane<Point> {
+  using HyperPlane<Point>::HyperPlane;
+
+  static Plane fromPoints(Point a, Point b, Point c) {
     return Plane((b-a).cross(c-a), a);
   }
 
-  Plane(Point n=Point(), Point t=Point()) : _normal(n), _translation(t) {}
-  bool contains(const Point& p) const {
-    return _normal.dot(p - _translation) == 0;
+};
+
+template <class Point=Point<2> >
+struct Line : HyperPlane<Point> {
+  using HyperPlane<Point>::HyperPlane;
+
+  static Line fromPoints(Point a, Point b) {
+    Point m = a - b;
+    return Line(Point({{m[1], -m[0]}}), a);
   }
 };
 

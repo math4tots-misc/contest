@@ -62,11 +62,17 @@ int main() {
 		assert(to_string(plane) == "Plane(Point(0, 0, 1), Point(0, 0, 0))");
 	}
 	{
-		Plane<> plane(Plane<>::fromPoints3D(
+		auto plane = Plane<>::fromPoints(
 				Point<3>({{1, 0, 0}}),
 				Point<3>({{0, 1, 0}}),
-				Point<3>({{1, 1, 0}})));
+				Point<3>({{1, 1, 0}}));
 		assert(plane.contains(Point<3>({{2, 5.5, 0}})));
 		assert(!plane.contains(Point<3>({{2, 2, 1}})));
+	}
+
+	/** Line */
+	{
+		auto line = Line<>::fromPoints(Point<2>({{1, 1}}), Point<2>({{1, 2}}));
+		assert(line.contains(Point<2>({{1, 4}})));
 	}
 }
