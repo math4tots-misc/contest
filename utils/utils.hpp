@@ -307,6 +307,14 @@ struct Point {
       ret += _buffer[i] * p._buffer[i];
     return ret;
   }
+
+  /* -- Only really works for Dimension == 3 -- */
+  Point cross(const Point& p) const {
+    return Point({{
+        _buffer[1] * p._buffer[2] - _buffer[2] * p._buffer[1],
+        _buffer[2] * p._buffer[0] - _buffer[0] * p._buffer[2],
+        _buffer[0] * p._buffer[1] - _buffer[1] * p._buffer[0]}});
+  }
 };
 
 template <size_t D, class S>
@@ -328,6 +336,33 @@ template <size_t Dimension, class Scalar>
 string to_string(const Point<Dimension, Scalar>& p) {
   ostringstream ss;
   ss << p;
+  return ss.str();
+}
+
+/*** (Hyper)Plane */
+template <class Point=Point<3> >
+struct Plane {
+  Point _normal, _translation;
+
+  static Plane fromPoints3D(Point a, Point b, Point c) {
+    return Plane((b-a).cross(c-a), a);
+  }
+
+  Plane(Point n=Point(), Point t=Point()) : _normal(n), _translation(t) {}
+  bool contains(const Point& p) const {
+    return _normal.dot(p - _translation) == 0;
+  }
+};
+
+template <class Point>
+ostream& operator<<(ostream& out, const Plane<Point>& plane) {
+  return out << "Plane(" << plane._normal << ", " << plane._translation << ')';
+}
+
+template <class Point>
+string to_string(const Plane<Point>& plane) {
+  ostringstream ss;
+  ss << plane;
   return ss.str();
 }
 
